@@ -6,6 +6,7 @@ library(dplyr)
 library(lubridate)
 library(ggplot2)
 library(readxl)
+library(here)
 
 
 load_from_xls <- function(month){
@@ -21,7 +22,7 @@ load_from_xls <- function(month){
   data$day <- day(data$time)
   data$month <- month(data$time)
   data$year <- year(data$time)
-  saveRDS(data, paste0(month, "strom.rds"))
+  saveRDS(data, here("data", paste0(month, "strom.rds")))
   return(data)
 }
 
