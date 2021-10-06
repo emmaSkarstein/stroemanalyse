@@ -8,15 +8,23 @@ source("01_datavask.R")
 #data <- load_from_xls("01")
 #readRDS("data/01strom.rds")
 
-data <- merge_months(c("01", "02", "03", "04", "05", "06", "07", "08"))
-data$time <- as.Date(data$time)
+#data <- merge_months(c("01", "02", "03", "04", "05", "06", "07", "08"))
 
-summary(data$forbruk)
+data <- up_to_date_data
+data$date <- as.Date(data$tid)
+data$month <- as.factor(month(data$tid))
+data$weekday <- as.factor(weekdays(data$tid))
+data$year <- year(data$tid)
 
-ggplot(data, aes(x = time, y = forbruk)) + 
+
+summary(data)
+str(data)
+class(data$month)
+
+ggplot(data, aes(x = tid, y = forbruk)) + 
   geom_line()
 
-ggplot(data, aes(x = time, y = forbruk))+
+ggplot(data, aes(x = tid, y = forbruk))+
   geom_col(aes(fill = hour))+
   theme(axis.text.x = element_text(angle = 90))
 
